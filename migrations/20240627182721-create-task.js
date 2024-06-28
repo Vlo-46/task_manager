@@ -9,14 +9,16 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      firstName: {
-        type: Sequelize.STRING
+      title: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
-      lastName: {
-        type: Sequelize.STRING
+      description: {
+        type: Sequelize.TEXT,
       },
-      email: {
-        type: Sequelize.STRING
+      status: {
+        type: Sequelize.ENUM('pending', 'in-progress', 'completed'),
+        defaultValue: 'pending',
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +27,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Users',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL'
       }
     });
   },
